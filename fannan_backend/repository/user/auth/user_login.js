@@ -13,10 +13,22 @@ export const userLogin = async (req) => {
 
         if (user_password) {
 
-            userdata.created_at = moment(userdata.created_at).format('MMMM Do YYYY, h:mm:ss a') // June 8th 2023, 7:39:08 pm
-            userdata.updated_at = moment(userdata.updated_at).format('MMMM Do YYYY, h:mm:ss a')
+            const user_details = await UserModel.aggregate([
+                { $match: { email: req.email } },
+                { $lookup: { from: "categories", localField: "category", foreignField: "_id", as: "userdata", } },
+                { $unwind: { path: "$userdata" } }
+            ])
 
-            return userdata;
+            const details = {
+                firstname: user_details[0].firstname,
+                lastname: user_details[0].lastname,
+                email: user_details[0].email,
+                phone: user_details[0].phone,
+                category: user_details[0].userdata.title,
+                created_at: moment(user_details.created_at).format('MMMM Do YYYY, h:mm:ss a') // June 8th 2023, 7:39:08 pm
+            }
+
+            return details;
         }
         else {
             return 0;

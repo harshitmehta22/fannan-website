@@ -1,6 +1,7 @@
 import { StatusCodes } from "http-status-codes"
 import { addUser } from "../../repository/user/user/add_user.js"
 import { userLogin } from "../../repository/user/auth/user_login.js"
+import { UserModel } from "../../models/schemas/user/User.js"
 
 export class usercontroller {
 
@@ -38,9 +39,25 @@ export class usercontroller {
             res.status(StatusCodes.BAD_REQUEST).json({ massege: "Wrong Password" })
 
         } else {
+
             res.status(StatusCodes.OK).json({ massege: "user logged in successfully", data })
         }
 
+
+    }
+
+
+    async update_profile(req, res) {
+        try {
+            console.log(req.body)
+
+            const data = await UserModel.findByIdAndUpdate({ '_id': req.params.id }, req.body)
+            res.status(StatusCodes.CREATED).json({ massege: "profile updated successfully", data })
+
+        } catch (error) {
+            console.log(error)
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ massege: "something went wrong " })
+        }
 
     }
 

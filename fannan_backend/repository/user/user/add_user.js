@@ -7,8 +7,9 @@ export const addUser = async (data) => {
     try {
         const check_user = await UserModel.findOne({ email: data.email })
         if (!check_user) {
-            const userdata = new UserModel(data)
             data.password = await bcrypt.hash(data.password, 10)
+            console.log(data)
+            const userdata = UserModel(data)
             const user = await userdata.save()
             return user;
         }

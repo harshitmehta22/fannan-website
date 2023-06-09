@@ -10,7 +10,7 @@ const UserSchema = mongoose.Schema({
     email: { type: String, required: true, trim: true, default: "" },
     phone: { type: String, required: false, trim: true, default: "" },
     password: { type: String, trim: true, required: true },
-    isvarified: { type: Boolean, required: false, default: 1 }, // 0 - not verified 1- varified 
+    isverified: { type: Boolean, required: false, default: 1 }, // 0 - not verified 1- varified 
     country: { type: ObjectId, required: false },
     state: { type: ObjectId, required: false },
     city: { type: ObjectId, required: false },
@@ -18,6 +18,10 @@ const UserSchema = mongoose.Schema({
     category: { type: ObjectId, required: true },
     img_url: { type: String, required: false },
     web_url: { type: String, required: false },
+    fb_url: { type: String, required: false },
+    insta_url: { type: String, required: false },
+    linkding_url: { type: String, required: false },
+    last_opt: { type: String, required: false },
     status: { type: Number, required: false },
     created_at: { type: Number, required: false, default: new Date().getTime() },
     updated_at: { type: Number, required: false, default: new Date().getTime() },

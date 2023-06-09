@@ -13,6 +13,11 @@ const UserRouter = express.Router()
 const UserController = new usercontroller
 UserRouter.post("/user/register", UserController.user_regisgtration)
 UserRouter.post("/user/login", UserController.user_login)
+UserRouter.put("/user/update/profile/:id", UserController.update_profile)
+
+
+
+
 
 
 
